@@ -11,10 +11,10 @@ const VideoCard = props => {
   return (
     <li>
       <Link to={`/videos/${id}`}>
-        <img src={thumbnailUrl} alt="thumbNail" />
+        <img src={thumbnailUrl} alt="video thumbnail" />
         <div>
           <img src={profileImageUrl} alt="channel logo" />
-          <h1>{name}</h1>
+          <p>{name}</p>
         </div>
         <div>
           <p>{title}</p>

@@ -7,7 +7,7 @@ const GamingCard = props => {
   return (
     <li>
       <Link to={`/videos/${id}`}>
-        <img src={thumbnailUrl} alt="thumbNail" />
+        <img src={thumbnailUrl} alt="video thumbnail" />
         <div>
           <p>{title}</p>
           <p>{viewCount}</p>

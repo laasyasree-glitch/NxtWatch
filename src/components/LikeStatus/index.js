@@ -1,4 +1,5 @@
 import {AiOutlineLike, AiFillLike} from 'react-icons/ai'
+import {LikeButton} from './styledComponents'
 
 const LikeStatus = props => {
   const {isActive, toggleActiveLikeStatus} = props
@@ -10,10 +11,10 @@ const LikeStatus = props => {
 
   return (
     <div>
-      <p>Like</p>
-      <button type="button" onClick={onClickStar}>
+      <LikeButton isActive type="button" onClick={onClickStar}>
+        Like
         {starImageURL}
-      </button>
+      </LikeButton>
     </div>
   )
 }

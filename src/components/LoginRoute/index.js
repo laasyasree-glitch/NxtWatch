@@ -1,6 +1,18 @@
 import {Component} from 'react'
 
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
+
+import SavedVideosContext from '../../context/SavedVideosContext'
+
+import {
+  LoginContainer,
+  FormContainer,
+  LoginButton,
+  FieldContainer,
+  CheckBoxContainer,
+  InputContent,
+} from './styledComponents'
 
 class LoginRoute extends Component {
   state = {
@@ -13,7 +25,7 @@ class LoginRoute extends Component {
 
   onSubmitSuccess = jwtToken => {
     const {history} = this.props
-    Cookies.set('jwt_token', jwtToken)
+    Cookies.set('jwt_token', jwtToken, {expires: 30, path: '/'})
     history.replace('/')
   }
 
@@ -54,47 +66,50 @@ class LoginRoute extends Component {
   renderUserName = () => {
     const {username} = this.state
     return (
-      <div>
+      <FieldContainer>
         <label htmlFor="username">Username</label>
-        <input
+        <InputContent
           type="text"
           id="username"
           value={username}
           onChange={this.onChangeUsername}
+          placeholder="Username"
         />
-      </div>
+      </FieldContainer>
     )
   }
 
   renderPassword = () => {
     const {password, checked} = this.state
     return (
-      <div>
+      <FieldContainer>
         <label htmlFor="password">Password</label>
         {checked && (
-          <input
+          <InputContent
             type="password"
             id="password"
             value={password}
             onChange={this.onChangePassword}
+            placeholder="Password"
           />
         )}
         {!checked && (
-          <input
+          <InputContent
             type="text"
             id="password"
             value={password}
             onChange={this.onChangePassword}
+            placeholder="Password"
           />
         )}
-      </div>
+      </FieldContainer>
     )
   }
 
   renderCheckBox = () => {
     const {checked} = this.state
     return (
-      <div>
+      <CheckBoxContainer>
         <input
           id="showPassword"
           type="checkbox"
@@ -102,26 +117,37 @@ class LoginRoute extends Component {
           onClick={this.onChangeChecked}
         />
         <label htmlFor="showPassword">Show Password</label>
-      </div>
+      </CheckBoxContainer>
     )
   }
 
   render() {
     const {errorMsg, showSubmitError} = this.state
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
     return (
-      <div>
-        <img
-          alt="website logo"
-          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-        />
-        <form onSubmit={this.submitForm}>
-          <div>{this.renderUserName()}</div>
-          <div>{this.renderPassword()}</div>
-          <div>{this.renderCheckBox()}</div>
-          <button type="submit">Login</button>
-          {showSubmitError && <p>*{errorMsg}</p>}
-        </form>
-      </div>
+      <SavedVideosContext.Consumer>
+        {value => {
+          const {isDarkTheme} = value
+          return (
+            <LoginContainer isDarkMode={isDarkTheme}>
+              <FormContainer onSubmit={this.submitForm}>
+                <img
+                  alt="website logo"
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                />
+                <div>{this.renderUserName()}</div>
+                <div>{this.renderPassword()}</div>
+                <div>{this.renderCheckBox()}</div>
+                <LoginButton type="submit">Login</LoginButton>
+                {showSubmitError && <p>*{errorMsg}</p>}
+              </FormContainer>
+            </LoginContainer>
+          )
+        }}
+      </SavedVideosContext.Consumer>
     )
   }
 }

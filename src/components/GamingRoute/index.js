@@ -91,6 +91,7 @@ class GamingRoute extends Component {
 
     return shouldShowProductsList ? (
       <HomeContentContainer>
+        <h1>Gaming</h1>
         <ul className="products-list">
           {videosList.map(video => (
             <GamingCard gameData={video} key={video.id} />

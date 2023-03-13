@@ -1,5 +1,7 @@
 import {AiOutlineDislike, AiFillDislike} from 'react-icons/ai'
 
+import {DislikeButton} from './styledComponents'
+
 const DislikeStatus = props => {
   const {isActive, toggleActiveDislikeStatus} = props
   const starImageURL = isActive ? <AiFillDislike /> : <AiOutlineDislike />
@@ -10,10 +12,10 @@ const DislikeStatus = props => {
 
   return (
     <div>
-      <p>Dislike</p>
-      <button type="button" onClick={onClickStar}>
+      <DislikeButton type="button" onClick={onClickStar}>
+        Dislike
         {starImageURL}
-      </button>
+      </DislikeButton>
     </div>
   )
 }

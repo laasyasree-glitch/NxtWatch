@@ -13,8 +13,8 @@ const SavedVideoCard = props => {
       <Link to={`/videos/${id}`}>
         <img src={thumbnailUrl} alt="video thumbnail" />
         <div>
-          <img src={profileImageUrl} alt="profile" />
-          <h1>{name}</h1>
+          <img src={profileImageUrl} alt="channel logo" />
+          <p>{name}</p>
         </div>
         <div>
           <p>{title}</p>

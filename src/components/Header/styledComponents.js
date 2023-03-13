@@ -32,6 +32,7 @@ export const OptionsContainer = styled.div`
 export const ThemeButton = styled.button`
   background-color: transparent;
   border: 0px;
+  cursor: pointer;
 `
 
 export const Profile = styled.img`

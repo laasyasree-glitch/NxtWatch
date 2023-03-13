@@ -5,7 +5,12 @@ import Cookies from 'js-cookie'
 
 import 'reactjs-popup/dist/index.css'
 
-import {LogOutButton} from './styledComponents'
+import {
+  LogOutButton,
+  PopUpContent,
+  ButtonsContainer,
+  PopupButton,
+} from './styledComponents'
 import SavedVideosContext from '../../context/SavedVideosContext'
 
 const LogOutPopUp = props => {
@@ -35,21 +40,22 @@ const LogOutPopUp = props => {
               }
             >
               {close => (
-                <>
-                  <div>
-                    <p>Are you sure, you want to logout</p>
-                    <button type="button" onClick={logOutFunction}>
+                <PopUpContent isDarkTheme={isDarkTheme}>
+                  <p>Are you sure, you want to logout</p>
+                  <ButtonsContainer>
+                    <PopupButton
+                      type="button"
+                      className="trigger-button"
+                      onClick={() => close()}
+                      outline
+                    >
+                      Cancel
+                    </PopupButton>
+                    <PopupButton type="button" onClick={logOutFunction}>
                       Confirm
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    className="trigger-button"
-                    onClick={() => close()}
-                  >
-                    Cancel
-                  </button>
-                </>
+                    </PopupButton>
+                  </ButtonsContainer>
+                </PopUpContent>
               )}
             </Popup>
           </div>

@@ -1,28 +1,28 @@
 import {Link} from 'react-router-dom'
 import {formatDistanceToNow} from 'date-fns'
-
+import {ChannelLogo, ThumbNail, VideItemContainer} from './styledComponents'
 // console.log(formatDistanceToNow(new Date(2021, 8, 20)))
 
 const VideoCard = props => {
   const {videoData} = props
   const {id, title, thumbnailUrl, channel, viewCount, publishedAt} = videoData
   const {name, profileImageUrl} = channel
-
+  const formatDate = formatDistanceToNow(new Date(publishedAt))
   return (
-    <li>
+    <VideItemContainer>
       <Link to={`/videos/${id}`}>
-        <img src={thumbnailUrl} alt="video thumbnail" />
+        <ThumbNail src={thumbnailUrl} alt="video thumbnail" />
         <div>
-          <img src={profileImageUrl} alt="channel logo" />
+          <ChannelLogo src={profileImageUrl} alt="channel logo" />
           <p>{name}</p>
         </div>
         <div>
           <p>{title}</p>
           <p>{viewCount}</p>
-          <p>{formatDistanceToNow(new Date(publishedAt))}</p>
+          <p>{formatDate.split(' ').splice(1).join(' ')} ago</p>
         </div>
       </Link>
-    </li>
+    </VideItemContainer>
   )
 }
 

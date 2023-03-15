@@ -2,15 +2,31 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 import ReactPlayer from 'react-player'
-import {RiMenuAddFill} from 'react-icons/ri'
+import {formatDistanceToNow} from 'date-fns'
+import {MdPlaylistAdd} from 'react-icons/md'
+import {
+  AiOutlineLike,
+  AiFillLike,
+  AiOutlineDislike,
+  AiFillDislike,
+} from 'react-icons/ai'
 
 import Header from '../Header'
-import LikeStatus from '../LikeStatus'
-import DislikeStatus from '../DislikeStatus'
 import SavedVideosContext from '../../context/SavedVideosContext'
 
 import SideBar from '../SideBar'
-import {HomeContainer, HomeContentContainer} from './styledComponents'
+import {
+  HomeContainer,
+  VideoItemDetailsContainer,
+  Video,
+  ChannelLogo,
+  TopContent,
+  TopSubOne,
+  ButtonsStatus,
+  BottomContainer,
+  CustomButton,
+} from './styledComponents'
+import './index.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -23,25 +39,11 @@ class VideoItemDetailsRoute extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     videoDetails: {},
-    likeStatus: false,
-    dislikeStatus: false,
   }
 
   componentDidMount() {
     this.getVideoDetails()
   }
-
-  toggleActiveLikeStatus = () =>
-    this.setState(ps => ({
-      likeStatus: !ps.likeStatus,
-      dislikeStatus: false,
-    }))
-
-  toggleActiveDislikeStatus = () =>
-    this.setState(ps => ({
-      dislikeStatus: !ps.dislikeStatus,
-      likeStatus: false,
-    }))
 
   updateChannel = obj => ({
     name: obj.name,
@@ -66,12 +68,12 @@ class VideoItemDetailsRoute extends Component {
     if (res.ok) {
       const fetchedData = await res.json()
       const updatedData = {
-        id: fetchedData.id,
+        id: fetchedData.video_details.id,
         title: fetchedData.video_details.title,
         videoUrl: fetchedData.video_details.video_url,
         thumbnailUrl: fetchedData.video_details.thumbnail_url,
         channel: this.updateChannel(fetchedData.video_details.channel),
-        view_count: fetchedData.video_details.view_count,
+        viewCount: fetchedData.video_details.view_count,
         publishedAt: fetchedData.video_details.published_at,
         description: fetchedData.video_details.description,
       }
@@ -102,7 +104,7 @@ class VideoItemDetailsRoute extends Component {
       />
       <h1>Oops! Something Went Wrong</h1>
       <p>
-        We are having some trouble processing your request. Please try again.
+        We are having some trouble to complete your request. Please try again.{' '}
       </p>
       <button type="button" onClick={this.onClickRetryButton}>
         Retry
@@ -113,54 +115,101 @@ class VideoItemDetailsRoute extends Component {
   renderVideosListView = () => (
     <SavedVideosContext.Consumer>
       {value => {
-        const {videoDetails, likeStatus, dislikeStatus} = this.state
+        const {videoDetails} = this.state
         const {
+          id,
           title,
-          thumbnailUrl,
           channel,
           viewCount,
           publishedAt,
           videoUrl,
+          description,
         } = videoDetails
         const {name, profileImageUrl, subscriberCount} = channel
-        const {addCartItem} = value
-        const onClickAddToCart = () => {
-          addCartItem({...videoDetails})
-        }
-        return (
-          <HomeContentContainer>
-            <ReactPlayer url={videoUrl} controls />
+        const {
+          likeStatus,
+          dislikeStatus,
+          toggleActiveLikeStatus,
+          toggleActiveDislikeStatus,
+          saveStatus,
+          toggleSaveButton,
+        } = value
 
-            <img src={thumbnailUrl} alt="thumbnail_url" />
-            <div>
-              <img src={profileImageUrl} alt="profile" />
-              <h1>{name}</h1>
-            </div>
-            <div>
-              <p>{title}</p>
-              <p>{viewCount}</p>
-              <p>{publishedAt}</p>
-              <p>{subscriberCount}</p>
-            </div>
-            <div>
-              <LikeStatus
-                isActive={likeStatus}
-                toggleActiveLikeStatus={this.toggleActiveLikeStatus}
+        const starImageURL1 = likeStatus ? <AiFillLike /> : <AiOutlineLike />
+        const starImageURL2 = dislikeStatus ? (
+          <AiFillDislike />
+        ) : (
+          <AiOutlineDislike />
+        )
+        const onClickSaveButton = () => {
+          toggleSaveButton(videoDetails)
+        }
+        const formatDate = formatDistanceToNow(new Date(publishedAt))
+        return (
+          <VideoItemDetailsContainer key={id}>
+            <Video>
+              <ReactPlayer
+                width="100%"
+                className="video"
+                url={videoUrl}
+                controls
               />
-              <DislikeStatus
-                isActive={dislikeStatus}
-                toggleActiveDislikeStatus={this.toggleActiveDislikeStatus}
-              />
-              <button
-                type="button"
-                className="button add-to-cart-btn"
-                onClick={onClickAddToCart}
-              >
-                <RiMenuAddFill />
-                Save
-              </button>
+            </Video>
+
+            <TopContent>
+              <TopSubOne>
+                <p>{title}</p>
+                <div>
+                  <span>
+                    {viewCount} views{'   '}-
+                  </span>
+                  <span>
+                    {'   '}
+                    {formatDate.split(' ').splice(1).join(' ')} ago
+                  </span>
+                </div>
+              </TopSubOne>
+
+              <ButtonsStatus>
+                <CustomButton
+                  isActive={likeStatus}
+                  onClick={toggleActiveLikeStatus}
+                >
+                  Like
+                  {starImageURL1}
+                </CustomButton>
+                <CustomButton
+                  isActive={dislikeStatus}
+                  onClick={toggleActiveDislikeStatus}
+                >
+                  Dislike
+                  {starImageURL2}
+                </CustomButton>
+
+                <CustomButton
+                  type="button"
+                  isActive={saveStatus}
+                  onClick={() => {
+                    onClickSaveButton()
+                  }}
+                >
+                  <MdPlaylistAdd className="like-icon" />
+                  {saveStatus ? 'Saved' : 'Save'}
+                </CustomButton>
+              </ButtonsStatus>
+            </TopContent>
+            <hr width="100%" />
+            <BottomContainer>
+              <ChannelLogo src={profileImageUrl} alt="profile" />
+              <div>
+                <h1>{name}</h1>
+                <p>{subscriberCount} subscribers</p>
+              </div>
+            </BottomContainer>
+            <div>
+              <p>{description}</p>
             </div>
-          </HomeContentContainer>
+          </VideoItemDetailsContainer>
         )
       }}
     </SavedVideosContext.Consumer>

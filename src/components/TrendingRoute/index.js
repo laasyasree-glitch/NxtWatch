@@ -5,7 +5,11 @@ import Header from '../Header'
 import VideoCard from '../VideoCard'
 
 import SideBar from '../SideBar'
-import {HomeContainer, HomeContentContainer} from './styledComponents'
+import {
+  HomeContainer,
+  HomeContentContainer,
+  VideosListContainer,
+} from './styledComponents'
 
 import SavedVideosContext from '../../context/SavedVideosContext'
 
@@ -94,11 +98,11 @@ class TrendingRoute extends Component {
     return shouldShowProductsList ? (
       <HomeContentContainer>
         <h1>Trending</h1>
-        <ul className="products-list">
+        <VideosListContainer>
           {videosList.map(video => (
             <VideoCard videoData={video} key={video.id} />
           ))}
-        </ul>
+        </VideosListContainer>
       </HomeContentContainer>
     ) : (
       <div className="no-products-view">

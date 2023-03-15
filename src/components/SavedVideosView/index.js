@@ -7,7 +7,7 @@ const SavedVideosView = () => (
       const {savedVideosList} = value
 
       return (
-        <ul className="cart-list">
+        <ul>
           {savedVideosList.map(eachCartItem => (
             <SavedVideoCard key={eachCartItem.id} videoData={eachCartItem} />
           ))}

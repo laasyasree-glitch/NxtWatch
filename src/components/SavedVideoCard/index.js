@@ -1,13 +1,11 @@
 import {Link} from 'react-router-dom'
 import {formatDistanceToNow} from 'date-fns'
 
-// console.log(formatDistanceToNow(new Date(2021, 8, 20)))
-
 const SavedVideoCard = props => {
   const {videoData} = props
   const {id, title, thumbnailUrl, channel, viewCount, publishedAt} = videoData
   const {name, profileImageUrl} = channel
-
+  console.log(videoData)
   return (
     <li>
       <Link to={`/videos/${id}`}>

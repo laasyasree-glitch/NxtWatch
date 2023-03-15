@@ -10,14 +10,10 @@ import {HomeContainer, HomeContentContainer} from './styledComponents'
 const SavedVideos = () => (
   <SavedVideosContext.Consumer>
     {value => {
-      const {savedVideosList, removeAllCartItems, isDarkTheme} = value
+      const {savedVideosList, isDarkTheme} = value
       const showEmptyView = savedVideosList.length === 0
-      const onClickRemoveAllBtn = () => {
-        removeAllCartItems()
-      }
-
       return (
-        <div data-testid="savedVideos">
+        <>
           <Header />
           <HomeContainer darkMode={isDarkTheme} data-testid="savedVideos">
             <SideBar />
@@ -27,19 +23,12 @@ const SavedVideos = () => (
               ) : (
                 <div className="cart-content-container">
                   <h1 className="cart-heading">Saved Videos</h1>
-                  <button
-                    type="button"
-                    className="remove-all-btn"
-                    onClick={onClickRemoveAllBtn}
-                  >
-                    Remove All
-                  </button>
                   <SavedVideosView />
                 </div>
               )}
             </HomeContentContainer>
           </HomeContainer>
-        </div>
+        </>
       )
     }}
   </SavedVideosContext.Consumer>

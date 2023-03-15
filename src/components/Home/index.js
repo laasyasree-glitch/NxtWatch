@@ -7,7 +7,11 @@ import VideoCard from '../VideoCard'
 import PrimeDealsSection from '../PrimeDealsSection'
 import SearchFilter from '../SearchFilter'
 import SideBar from '../SideBar'
-import {HomeContainer, HomeContentContainer} from './styledComponents'
+import {
+  HomeContainer,
+  HomeContentContainer,
+  VideosListContainer,
+} from './styledComponents'
 
 import SavedVideosContext from '../../context/SavedVideosContext'
 
@@ -18,7 +22,7 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-class HomeRoute extends Component {
+class Home extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     videosList: [],
@@ -97,12 +101,12 @@ class HomeRoute extends Component {
     const shouldShowProductsList = videosList.length > 0
 
     return shouldShowProductsList ? (
-      <div className="all-products-container">
-        <ul className="products-list">
+      <div className="all-products-container" data-testid="home">
+        <VideosListContainer className="products-list">
           {videosList.map(video => (
             <VideoCard videoData={video} key={video.id} />
           ))}
-        </ul>
+        </VideosListContainer>
       </div>
     ) : (
       <div className="no-products-view">
@@ -152,7 +156,7 @@ class HomeRoute extends Component {
           return (
             <>
               <Header />
-              <HomeContainer darkMode={isDarkTheme} data-testid="home">
+              <HomeContainer darkMode={isDarkTheme}>
                 <SideBar />
                 <HomeContentContainer>
                   <PrimeDealsSection
@@ -175,4 +179,4 @@ class HomeRoute extends Component {
   }
 }
 
-export default HomeRoute
+export default Home

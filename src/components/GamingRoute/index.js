@@ -5,7 +5,11 @@ import Header from '../Header'
 import SideBar from '../SideBar'
 import GamingCard from '../GamingCard'
 
-import {HomeContainer, HomeContentContainer} from './styledComponents'
+import {
+  HomeContainer,
+  HomeContentContainer,
+  VideosListContainer,
+} from './styledComponents'
 
 import SavedVideosContext from '../../context/SavedVideosContext'
 
@@ -92,11 +96,11 @@ class GamingRoute extends Component {
     return shouldShowProductsList ? (
       <HomeContentContainer>
         <h1>Gaming</h1>
-        <ul className="products-list">
+        <VideosListContainer className="products-list">
           {videosList.map(video => (
             <GamingCard gameData={video} key={video.id} />
           ))}
-        </ul>
+        </VideosListContainer>
       </HomeContentContainer>
     ) : (
       <div className="no-products-view">

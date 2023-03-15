@@ -7,6 +7,11 @@ export const SideBarContainer = styled.ul`
   list-style-type: none;
   margin-top: 0px;
   background-color: ${props => (props.darkMode ? '#181818' : '#f9f9f9')};
+  overflow: auto;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `
 export const OptionItem = styled.li`
   margin-bottom: 30px;
@@ -18,12 +23,13 @@ export const OptionsContainer = styled.div`
   margin: 0px;
   margin-top: 15vh;
   position: fixed;
+  overflow: auto;
 `
 export const ContactUsContainer = styled.div`
   color: ${props => (props.darkMode ? '#f9f9f9' : '#181818')};
   position: fixed;
   width: 15%;
-  margin-top: 70vh;
+  margin-top: 60vh;
 `
 export const ContactUsHeading = styled.p`
   font-size: 15px;

@@ -14,3 +14,10 @@ export const HomeContentContainer = styled.div`
   width: 80%;
   padding: 25px;
 `
+
+export const VideosListContainer = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`

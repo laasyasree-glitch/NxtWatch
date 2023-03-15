@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import LoginRoute from './components/LoginRoute'
-import HomeRoute from './components/HomeRoute'
+import Home from './components/Home'
 import NotFoundRoute from './components/NotFoundRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import VideoItemDetailsRoute from './components/VideoItemDetailsRoute'
@@ -16,6 +16,9 @@ class App extends Component {
   state = {
     savedVideosList: [],
     isDarkTheme: false,
+    likeStatus: false,
+    dislikeStatus: false,
+    saveStatus: false,
   }
 
   toggleTheme = () => {
@@ -24,36 +27,58 @@ class App extends Component {
     }))
   }
 
-  removeAllCartItems = () => {
-    this.setState({savedVideosList: []})
-  }
-
-  removeCartItem = id => {
-    const {cartList} = this.state
-    const updatedCartList = cartList.filter(
-      eachCartItem => eachCartItem.id !== id,
-    )
-
-    this.setState({savedVideosList: updatedCartList})
-  }
-
   addCartItem = product => {
+    console.log(product)
     const {savedVideosList} = this.state
     const productObject = savedVideosList.find(
       eachCartItem => eachCartItem.id === product.id,
     )
 
-    if (productObject) {
-      console.log('Hello')
-    } else {
+    if (!productObject) {
       const updatedCartList = [...savedVideosList, product]
-
       this.setState({savedVideosList: updatedCartList})
     }
   }
 
+  removeCartItem = id => {
+    const {savedVideosList} = this.state
+    const updatedList = savedVideosList.filter(x => x.id !== id)
+    this.setState({savedVideosList: updatedList})
+  }
+
+  toggleSaveButton = videoDetails => {
+    this.setState(ps => ({
+      saveStatus: !ps.saveStatus,
+    }))
+    const {saveStatus} = this.state
+    console.log(saveStatus, videoDetails)
+    if (!saveStatus) {
+      this.addCartItem(videoDetails)
+    } else {
+      this.removeCartItem(videoDetails.id)
+    }
+  }
+
+  toggleActiveLikeStatus = () =>
+    this.setState(ps => ({
+      likeStatus: !ps.likeStatus,
+      dislikeStatus: false,
+    }))
+
+  toggleActiveDislikeStatus = () =>
+    this.setState(ps => ({
+      dislikeStatus: !ps.dislikeStatus,
+      likeStatus: false,
+    }))
+
   render() {
-    const {savedVideosList, isDarkTheme} = this.state
+    const {
+      savedVideosList,
+      isDarkTheme,
+      likeStatus,
+      dislikeStatus,
+      saveStatus,
+    } = this.state
 
     return (
       <SavedVideosContext.Provider
@@ -61,14 +86,19 @@ class App extends Component {
           savedVideosList,
           addCartItem: this.addCartItem,
           removeCartItem: this.removeCartItem,
-          removeAllCartItems: this.removeAllCartItems,
           isDarkTheme,
           toggleTheme: this.toggleTheme,
+          likeStatus,
+          dislikeStatus,
+          saveStatus,
+          toggleActiveLikeStatus: this.toggleActiveLikeStatus,
+          toggleActiveDislikeStatus: this.toggleActiveDislikeStatus,
+          toggleSaveButton: this.toggleSaveButton,
         }}
       >
         <Switch>
           <Route exact path="/login" component={LoginRoute} />
-          <ProtectedRoute exact path="/" component={HomeRoute} />
+          <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute
             exact
             path="/videos/:id"

@@ -39,6 +39,9 @@ class VideoItemDetailsRoute extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     videoDetails: {},
+    likeStatus: false,
+    dislikeStatus: false,
+    saveStatus: false,
   }
 
   componentDidMount() {
@@ -112,10 +115,22 @@ class VideoItemDetailsRoute extends Component {
     </div>
   )
 
+  toggleActiveLikeStatus = () =>
+    this.setState(ps => ({
+      likeStatus: !ps.likeStatus,
+      dislikeStatus: false,
+    }))
+
+  toggleActiveDislikeStatus = () =>
+    this.setState(ps => ({
+      dislikeStatus: !ps.dislikeStatus,
+      likeStatus: false,
+    }))
+
   renderVideosListView = () => (
     <SavedVideosContext.Consumer>
       {value => {
-        const {videoDetails} = this.state
+        const {videoDetails, likeStatus, dislikeStatus, saveStatus} = this.state
         const {
           id,
           title,
@@ -126,14 +141,7 @@ class VideoItemDetailsRoute extends Component {
           description,
         } = videoDetails
         const {name, profileImageUrl, subscriberCount} = channel
-        const {
-          likeStatus,
-          dislikeStatus,
-          toggleActiveLikeStatus,
-          toggleActiveDislikeStatus,
-          saveStatus,
-          toggleSaveButton,
-        } = value
+        const {addCartItem, removeCartItem} = value
 
         const starImageURL1 = likeStatus ? <AiFillLike /> : <AiOutlineLike />
         const starImageURL2 = dislikeStatus ? (
@@ -141,9 +149,18 @@ class VideoItemDetailsRoute extends Component {
         ) : (
           <AiOutlineDislike />
         )
-        const onClickSaveButton = () => {
-          toggleSaveButton(videoDetails)
+
+        const toggleSaveButton = () => {
+          this.setState(
+            ps => ({
+              saveStatus: !ps.saveStatus,
+            }),
+            !saveStatus
+              ? addCartItem(videoDetails)
+              : removeCartItem(videoDetails.id),
+          )
         }
+
         const formatDate = formatDistanceToNow(new Date(publishedAt))
         return (
           <VideoItemDetailsContainer key={id}>
@@ -173,14 +190,14 @@ class VideoItemDetailsRoute extends Component {
               <ButtonsStatus>
                 <CustomButton
                   isActive={likeStatus}
-                  onClick={toggleActiveLikeStatus}
+                  onClick={this.toggleActiveLikeStatus}
                 >
                   Like
                   {starImageURL1}
                 </CustomButton>
                 <CustomButton
                   isActive={dislikeStatus}
-                  onClick={toggleActiveDislikeStatus}
+                  onClick={this.toggleActiveDislikeStatus}
                 >
                   Dislike
                   {starImageURL2}
@@ -190,7 +207,7 @@ class VideoItemDetailsRoute extends Component {
                   type="button"
                   isActive={saveStatus}
                   onClick={() => {
-                    onClickSaveButton()
+                    toggleSaveButton()
                   }}
                 >
                   <MdPlaylistAdd className="like-icon" />

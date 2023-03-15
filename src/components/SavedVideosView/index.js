@@ -1,5 +1,6 @@
 import SavedVideosContext from '../../context/SavedVideosContext'
 import SavedVideoCard from '../SavedVideoCard'
+import {VideosListContainer} from './styledComponents'
 
 const SavedVideosView = () => (
   <SavedVideosContext.Consumer>
@@ -7,11 +8,11 @@ const SavedVideosView = () => (
       const {savedVideosList} = value
 
       return (
-        <ul>
+        <VideosListContainer>
           {savedVideosList.map(eachCartItem => (
             <SavedVideoCard key={eachCartItem.id} videoData={eachCartItem} />
           ))}
-        </ul>
+        </VideosListContainer>
       )
     }}
   </SavedVideosContext.Consumer>

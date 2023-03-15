@@ -16,9 +16,6 @@ class App extends Component {
   state = {
     savedVideosList: [],
     isDarkTheme: false,
-    likeStatus: false,
-    dislikeStatus: false,
-    saveStatus: false,
   }
 
   toggleTheme = () => {
@@ -46,39 +43,8 @@ class App extends Component {
     this.setState({savedVideosList: updatedList})
   }
 
-  toggleSaveButton = videoDetails => {
-    this.setState(ps => ({
-      saveStatus: !ps.saveStatus,
-    }))
-    const {saveStatus} = this.state
-    console.log(saveStatus, videoDetails)
-    if (!saveStatus) {
-      this.addCartItem(videoDetails)
-    } else {
-      this.removeCartItem(videoDetails.id)
-    }
-  }
-
-  toggleActiveLikeStatus = () =>
-    this.setState(ps => ({
-      likeStatus: !ps.likeStatus,
-      dislikeStatus: false,
-    }))
-
-  toggleActiveDislikeStatus = () =>
-    this.setState(ps => ({
-      dislikeStatus: !ps.dislikeStatus,
-      likeStatus: false,
-    }))
-
   render() {
-    const {
-      savedVideosList,
-      isDarkTheme,
-      likeStatus,
-      dislikeStatus,
-      saveStatus,
-    } = this.state
+    const {savedVideosList, isDarkTheme} = this.state
 
     return (
       <SavedVideosContext.Provider
@@ -88,12 +54,6 @@ class App extends Component {
           removeCartItem: this.removeCartItem,
           isDarkTheme,
           toggleTheme: this.toggleTheme,
-          likeStatus,
-          dislikeStatus,
-          saveStatus,
-          toggleActiveLikeStatus: this.toggleActiveLikeStatus,
-          toggleActiveDislikeStatus: this.toggleActiveDislikeStatus,
-          toggleSaveButton: this.toggleSaveButton,
         }}
       >
         <Switch>

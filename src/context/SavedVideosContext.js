@@ -6,11 +6,6 @@ const SavedVideosContext = React.createContext({
 
   isDarkTheme: false,
   toggleTheme: () => {},
-
-  likeStatus: false,
-  dislikeStatus: false,
-  toggleActiveLikeStatus: () => {},
-  toggleActiveDislikeStatus: () => {},
 })
 
 export default SavedVideosContext

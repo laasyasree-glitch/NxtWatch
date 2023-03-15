@@ -12,16 +12,16 @@ const VideoCard = props => {
     <VideItemContainer>
       <Link to={`/videos/${id}`}>
         <ThumbNail src={thumbnailUrl} alt="video thumbnail" />
-        <div>
-          <ChannelLogo src={profileImageUrl} alt="channel logo" />
-          <p>{name}</p>
-        </div>
-        <div>
-          <p>{title}</p>
-          <p>{viewCount}</p>
-          <p>{formatDate.split(' ').splice(1).join(' ')} ago</p>
-        </div>
       </Link>
+      <div>
+        <ChannelLogo src={profileImageUrl} alt="channel logo" />
+        <p>{name}</p>
+      </div>
+      <div>
+        <p>{title}</p>
+        <p>{viewCount}</p>
+        <p>{formatDate.split(' ').splice(1).join(' ')} ago</p>
+      </div>
     </VideItemContainer>
   )
 }

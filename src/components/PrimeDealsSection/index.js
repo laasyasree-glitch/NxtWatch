@@ -1,5 +1,5 @@
 import {AiOutlineClose} from 'react-icons/ai'
-import {BannerContainer} from './styledComponents'
+import {BannerContainer, CloseButton, GetButton} from './styledComponents'
 
 const PrimeDealsSection = props => {
   const {closeBannerClicked, bannerCheck} = props
@@ -7,16 +7,18 @@ const PrimeDealsSection = props => {
   const onClickClose = () => closeBannerClicked()
   return (
     <BannerContainer bannerCheck={bannerCheck} data-testid="banner">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-        alt="nxt watch logo"
-      />
-      <p>Buy Nxt Watch Premium prepaid plans with UPI</p>
-      <button type="button">GET IT NOW</button>
+      <div>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+          alt="nxt watch logo"
+        />
+        <p>Buy Nxt Watch Premium prepaid plans with UPI</p>
+        <GetButton type="button">GET IT NOW</GetButton>
+      </div>
 
-      <button type="button" onClick={onClickClose}>
+      <CloseButton type="button" onClick={onClickClose}>
         <AiOutlineClose />
-      </button>
+      </CloseButton>
     </BannerContainer>
   )
 }

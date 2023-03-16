@@ -71,8 +71,8 @@ class App extends Component {
           />
           <ProtectedRoute exact path="/trending" component={TrendingRoute} />
           <ProtectedRoute exact path="/gaming" component={GamingRoute} />
-          <Route path="/bad-request" component={NotFoundRoute} />
-          <Redirect to="bad-request" />
+          <Route path="/not-found" component={NotFoundRoute} />
+          <Redirect to="not-found" />
         </Switch>
       </SavedVideosContext.Provider>
     )

@@ -16,7 +16,6 @@ import SavedVideosContext from '../../context/SavedVideosContext'
 const LogOutPopUp = props => {
   const logOutFunction = () => {
     const {history} = props
-    console.log(history)
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
@@ -41,7 +40,7 @@ const LogOutPopUp = props => {
             >
               {close => (
                 <PopUpContent isDarkTheme={isDarkTheme}>
-                  <p>Are you sure, you want to logout</p>
+                  <p>Are you sure, you want to logout ?</p>
                   <ButtonsContainer>
                     <PopupButton
                       type="button"
@@ -49,10 +48,10 @@ const LogOutPopUp = props => {
                       onClick={() => close()}
                       outline
                     >
-                      Cancel
+                      No
                     </PopupButton>
                     <PopupButton type="button" onClick={logOutFunction}>
-                      Confirm
+                      Yes
                     </PopupButton>
                   </ButtonsContainer>
                 </PopUpContent>

@@ -2,7 +2,7 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 import Header from '../Header'
-import SideBar from '../SideBar'
+import SideBar from '../Header-SideBar'
 import GamingCard from '../GamingCard'
 
 import {

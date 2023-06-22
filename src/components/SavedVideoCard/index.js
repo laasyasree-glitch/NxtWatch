@@ -28,13 +28,8 @@ const SavedVideoCard = props => {
 
           <p>{title}</p>
           <Details>
-            <p>
-              {viewCount} - {'   '}
-              {'    '}
-            </p>
-            <p>
-              {'    '} {formatDate.split(' ').splice(1).join(' ')} ago
-            </p>
+            <p>{viewCount}</p>
+            <p>{formatDate.split(' ').splice(1).join(' ')} ago</p>
           </Details>
         </Description>
       </Title>

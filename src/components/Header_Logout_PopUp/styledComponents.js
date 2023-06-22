@@ -22,15 +22,15 @@ export const PopUpContent = styled.div`
 `
 export const ButtonsContainer = styled.div`
   display: flex;
-  margin-top: 25px;
+  justify-content: space-around;
+  width: 100%;
 `
 export const PopupButton = styled.button`
-  height: 35px;
   color: ${props => (props.outline ? '#181818' : '#ffffff')};
   background-color: ${props => (props.outline ? '#ffffff' : '#3b82f6')};
   border: 2px solid ${props => (props.outline ? '#181818' : '#3b82f6')};
   border-radius: 5px;
-  width: 100%;
-  margin-right: 10%;
+  width: 20%;
+  padding: 1%;
   cursor: pointer;
 `

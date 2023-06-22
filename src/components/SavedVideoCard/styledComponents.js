@@ -30,4 +30,5 @@ export const Description = styled.div`
 
 export const Details = styled.div`
   display: flex;
+  justify-content: space-between;
 `

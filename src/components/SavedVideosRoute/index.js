@@ -1,10 +1,10 @@
 import SavedVideosContext from '../../context/SavedVideosContext'
 
 import Header from '../Header'
-import EmptySavedVideosView from '../EmptySavedVideosView'
+import EmptySavedVideosView from '../SavedVideosEmptyView'
 import SavedVideosView from '../SavedVideosView'
 
-import SideBar from '../SideBar'
+import SideBar from '../Header-SideBar'
 import {HomeContainer, HomeContentContainer} from './styledComponents'
 
 const SavedVideos = () => (

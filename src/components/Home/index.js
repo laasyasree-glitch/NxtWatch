@@ -6,7 +6,7 @@ import Header from '../Header'
 import VideoCard from '../VideoCard'
 import PrimeDealsSection from '../PrimeDealsSection'
 import SearchFilter from '../SearchFilter'
-import SideBar from '../SideBar'
+import SideBar from '../Header-SideBar'
 import {
   HomeContainer,
   HomeContentContainer,

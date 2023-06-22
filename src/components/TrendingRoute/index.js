@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import Header from '../Header'
 import VideoCard from '../VideoCard'
 
-import SideBar from '../SideBar'
+import SideBar from '../Header-SideBar'
 import {
   HomeContainer,
   HomeContentContainer,

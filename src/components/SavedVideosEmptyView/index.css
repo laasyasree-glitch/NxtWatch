@@ -1,0 +1,10 @@
+.emptySavedVideos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-saved {
+  width: 40%;
+}

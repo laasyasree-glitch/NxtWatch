@@ -14,7 +14,7 @@ import {
 import Header from '../Header'
 import SavedVideosContext from '../../context/SavedVideosContext'
 
-import SideBar from '../SideBar'
+import SideBar from '../Header-SideBar'
 import {
   HomeContainer,
   VideoItemDetailsContainer,
